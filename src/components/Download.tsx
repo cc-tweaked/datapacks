@@ -22,9 +22,9 @@ const Download: Component<{ name: string, pack: PackOutput }> = props => {
 
   return <div class={styles.downloadSplit}>
     <div class={styles.downloadSummary}>
-      <h3>Download as Data Pack</h3>
+      <h3>Download as Datapack</h3>
       <p>
-        Download as a data pack. This file should be saved to <code>datapacks/{packFileName()}.zip</code> in your world
+        Download as a datapack. This file should be saved to <code>datapacks/{packFileName()}.zip</code> in your world
         folder.
       </p>
     </div>
@@ -41,7 +41,7 @@ const Download: Component<{ name: string, pack: PackOutput }> = props => {
     <div class={styles.downloadSummary}>
       <h3>Download as Mod</h3>
       <p>
-        Download as a mod. This file should be saved to <code>mods/{packFileName()}.zip</code> in your Minecraft folder.
+        Download as a mod. This file should be saved to <code>mods/{packFileName()}.jar</code> in your Minecraft folder.
       </p>
     </div>
     <div class={styles.downloadButtons}>
