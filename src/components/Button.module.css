@@ -1,0 +1,34 @@
+.input {
+  appearance: none;
+  margin: 0;
+  padding: 0;
+}
+
+.buttonLike {
+  --background-colour: var(--button-background-colour);
+  --highlight-colour: var(--background-colour);
+
+  color: var(--text-colour);
+  background: var(--background-colour);
+}
+
+.button {
+  cursor: pointer;
+  border: solid 2px var(--border-colour);
+}
+
+.buttonLike:disabled {
+  cursor: not-allowed;
+  --text-colour: var(--disabled-text-colour);
+  --background-colour: var(--disabled-background-colour);
+}
+
+.buttonLike:hover, .buttonLike:focus {
+  --background-colour: var(--hover-background-colour);
+}
+
+.input:checked + .buttonLike {
+  --text-colour: var(--checked-text-colour);
+  --highlight-colour: var(--checked-text-colour);
+  --background-colour: var(--checked-background-colour);
+}

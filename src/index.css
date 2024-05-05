@@ -1,0 +1,54 @@
+/* CSS Reset */
+:root { line-height: 1.5; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+}
+
+html, body {
+  min-height: 100vh;
+  height: 100%;
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
+  border: none;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+* { box-sizing: border-box; }
+h1, h2, h3, h4, h5, h6, p { margin: 0; font-size: inherit; font-weight: inherit; }
+input, select { font: inherit; }
+
+/* Our main styles */
+:root {
+  --text-colour: #222;
+  --border-colour: #ddd;
+
+  --button-background-colour: #ccc;
+
+  --disabled-text-colour: #777;
+  --disabled-background-colour: #eee;
+
+  --hover-background-colour: #aaa;
+
+  --checked-text-colour: #fff;
+  --checked-background-colour: #333;
+}
+
+body { color: var(--text-colour); }
+h1 { font-size: 2.25rem; }
+h2 { font-size: 1.5rem; }
+
+#root {
+  max-width: 56rem;
+  margin: 5rem auto 1rem auto;
+  padding: 1rem;
+
+  border: solid 4px var(--border-colour);
+}
+
+#root > * + * { margin-top: 1rem; }

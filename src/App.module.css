@@ -1,0 +1,37 @@
+.section {
+  --header-colour: #444;
+
+  border: solid 2px var(--header-colour);
+}
+
+.section > * {
+  padding: 0.5rem;
+}
+
+.sectionTitle {
+  background: var(--header-colour);
+  color: #fff;
+}
+
+.featureContents {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.inputGroup {
+  display: grid;
+  grid-template-columns: 10rem 1fr;
+  gap: 0.5rem;
+}
+
+.inputGroup > .label { text-align: right; }
+
+/* Radio groups: a list of buttons ********************************************/
+.radioGroup {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.radioButton {
+  padding: 0.25rem;
+}

@@ -1,0 +1,42 @@
+.downloadSplit {
+  display: grid;
+  grid-template-columns: 1fr min-content 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 1rem 1rem;
+  grid-template-areas:
+    ". separator ."
+    ". separator .";
+
+  --border-colour: #444;
+}
+
+.downloadSeparator {
+  grid-area: separator;
+
+  text-transform: uppercase;
+  font-size: 1.3rem;
+
+  display: flex;
+  gap: 0.5rem;
+  flex-direction: column;
+  align-items: center;
+}
+
+.downloadBar {
+  flex-basis: 50%;
+  border-left: solid 1px var(--border-colour);
+  height: 50%;
+}
+
+.downloadSummary { grid-row: 1; }
+.downloadButtons { grid-row: 2; }
+
+.downloadSummary > * + * { margin: 0.5rem 0rem; }
+.downloadSummary h3 { font-size: 1.3rem; }
+.downloadSummary p { font-size: 0.8rem; }
+
+.downloadButton {
+  width: 100%;
+  padding: 1.5rem 0.5rem;
+  border: solid 2px var(--border-colour);
+}

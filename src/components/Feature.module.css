@@ -1,0 +1,37 @@
+.feature {
+  width: 8rem;
+}
+
+.featureLabel {
+  width: 100%;
+  height: 100%;
+
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.25rem;
+}
+
+.featureImg {
+  --img-size: 4rem;
+  width: var(--img-size);
+  height: var(--img-size);
+
+  filter:
+    drop-shadow(2px 2px 1px var(--highlight-colour))
+    drop-shadow(-2px 2px 1px var(--highlight-colour))
+    drop-shadow(2px -2px 1px var(--highlight-colour))
+    drop-shadow(-2px -2px 1px var(--highlight-colour));
+}
+
+.tooltip {
+  width: max-content;
+  max-width: 20rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #111;
+  color: white;
+  padding: 0.5rem;
+  font-size: 90%;
+}
