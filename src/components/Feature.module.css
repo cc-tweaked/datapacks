@@ -24,6 +24,8 @@
     drop-shadow(-2px -2px 1px var(--highlight-colour));
 }
 
+.featureLabel > span { text-align: center; }
+
 .tooltip {
   width: max-content;
   max-width: 20rem;

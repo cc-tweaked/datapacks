@@ -39,3 +39,11 @@ export const prettyJson = (x: unknown): string => JSON.stringify(x, null, "  ");
 export const assertNever = (_: never): never => {
   throw Error("Impossible: never");
 }
+
+export class Base64String {
+  readonly contents: string;
+
+  constructor(contents: string) {
+    this.contents = contents;
+  }
+}

@@ -43,6 +43,14 @@ body { color: var(--text-colour); }
 h1 { font-size: 2.25rem; }
 h2 { font-size: 1.5rem; }
 
+input[type=text] {
+  border: #aaa solid 1px;
+  outline: none;
+}
+input[type=text]:hover { border-color: #222; }
+input[type=text]:focus { border-color: #0f0fd0; }
+input[type=text]:invalid { border-color: red; }
+
 #root {
   max-width: 56rem;
   margin: 5rem auto 1rem auto;

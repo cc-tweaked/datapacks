@@ -6,7 +6,7 @@ import type { PackItem } from '../datapack';
 import { computePosition, flip, offset, shift } from '@floating-ui/dom';
 
 
-export type FeatureProps = Pick<PackItem, "name" | "description" | "icon" | "iconAlt"> & {
+export type FeatureProps = PackItem & {
   checked: Accessor<boolean>,
   setChecked: Setter<boolean>;
 };

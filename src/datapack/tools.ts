@@ -83,7 +83,8 @@ const makeTool = (material: Material): PackItem => ({
           break;
 
         case Version.MC_1_20_6:
-          // 1.20.5 uses computercraft/turtle_upgrade, and has the adjective as a JSON component.
+        case Version.MC_1_21:
+          // 1.20.5+ uses computercraft/turtle_upgrade, and has the adjective as a JSON component.
           pack.data("minecraft", `computercraft/turtle_upgrade/${name}.json`, {
             type: "computercraft:tool",
             adjective: { "translate": adjective },

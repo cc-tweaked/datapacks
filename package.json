@@ -8,6 +8,7 @@
     "serve": "vite preview"
   },
   "devDependencies": {
+    "@types/node": "^20.14.9",
     "eslint": "^8.57.0",
     "eslint-plugin-solid": "^0.14.0",
     "typescript": "^5.3.3",

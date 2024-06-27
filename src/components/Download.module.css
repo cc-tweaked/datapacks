@@ -1,7 +1,7 @@
 .downloadSplit {
   display: grid;
   grid-template-columns: 1fr min-content 1fr;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: min-content;
   gap: 1rem 1rem;
   grid-template-areas:
     ". separator ."
@@ -22,14 +22,34 @@
   align-items: center;
 }
 
-.downloadBar {
+.downloadSeparator > .downloadBar {
   flex-basis: 50%;
   border-left: solid 1px var(--border-colour);
   height: 50%;
 }
 
+.downloadSeparatorHorizontal {
+  text-transform: uppercase;
+  font-size: 0.8rem;
+
+  display: flex;
+  gap: 0.5rem;
+  flex-direction: row;
+  align-items: center;
+}
+
+.downloadSeparatorHorizontal > .downloadBar {
+  flex-basis: 50%;
+  border-top: solid 1px var(--border-colour);
+  height: 50%;
+}
+
 .downloadSummary { grid-row: 1; }
-.downloadButtons { grid-row: 2; }
+
+.downloadButtons {
+  grid-row: 2;
+  align-content: center;
+}
 
 .downloadSummary > * + * { margin: 0.5rem 0rem; }
 .downloadSummary h3 { font-size: 1.3rem; }
