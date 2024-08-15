@@ -99,7 +99,7 @@ const makeOverlays = (overlays: Overlay[]) => (output: PackOutput): void => {
   for (const overlay of overlays) addOverlay(output, overlay);
 }
 
-export const turtleFlags: PackItem = {
+const turtleFlags: PackItem = {
   name: "More Turtle Flags",
   description: "Add extra flags for turtles to hold.",
   icon,
@@ -146,3 +146,5 @@ export const turtleFlags: PackItem = {
     },
   ]),
 };
+
+export default turtleFlags;

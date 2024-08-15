@@ -1,4 +1,4 @@
-import { For, Show, createMemo, createSignal, type Accessor, type Component, type JSX } from 'solid-js';
+import { Suspense, Switch, Match, For, Show, createMemo, createResource, createSignal, type Accessor, type Component, type JSX } from 'solid-js';
 
 import styles from "./App.module.css";
 
@@ -6,7 +6,8 @@ import { ToggleButton } from './components/Button';
 import Download from './components/Download';
 import { Feature, type FeatureProps } from './components/Feature';
 import { PackOutput, Version, makeModId, versions, type PackItem } from './datapack';
-import { turtleFlags } from './datapack/overlay';
+import turtleFlags from './datapack/overlay';
+import treasure from "./datapack/treasure";
 import tools from './datapack/tools';
 
 
@@ -40,17 +41,20 @@ const App: Component = () => {
   const [mcVersion, setMcVersion] = createSignal(Version.MC_1_20_1);
 
   const enabledTools = createPackItems(tools, mcVersion);
-  const enabledTweaks = createPackItems([turtleFlags], mcVersion);
+  const enabledTweaks = createPackItems([turtleFlags, treasure], mcVersion);
   const allFeatures = () => [...enabledTools(), ...enabledTweaks()];
 
-  const createPack = createMemo(() => {
+  const [createPack] = createResource(async () => {
+    console.log("id")
     const id = packId();
     const pack = new PackOutput(mcVersion(), packName(), id === "" ? undefined : id);
+    const futures: (void | Promise<void>)[] = [];
     for (const feature of allFeatures()) {
-      if (feature.checked()) feature.process(pack);
+      if (feature.checked()) futures.push(feature.process(pack));
     }
+    await Promise.all(futures);
     return pack;
-  });
+  }, v => v);
 
   return <>
     <Section title="Pack Details">
@@ -81,7 +85,16 @@ const App: Component = () => {
     <FeatureSection title="Turtle Tools" features={enabledTools()} />
     <FeatureSection title="Tweaks" features={enabledTweaks()} />
     <Section title="Download">
-      <Download pack={createPack()} />
+      <Suspense fallback={<p>Loading...</p>}>
+        <Switch>
+          <Match when={createPack.error}>
+              <p>An error occurred (<code>{createPack.error}</code>)</p>
+          </Match>
+          <Match when={createPack()}>
+            <Download pack={createPack()!!} />
+          </Match>
+        </Switch>
+      </Suspense>
     </Section>
   </>;
 };

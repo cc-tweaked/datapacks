@@ -185,5 +185,5 @@ export type PackItem = {
   enabled?: (version: Version) => boolean;
 
   /** Process this datapack. */
-  process: (datapack: PackOutput) => void;
+  process: (datapack: PackOutput) => (void | Promise<void>);
 };

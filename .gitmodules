@@ -1,0 +1,3 @@
+[submodule "vendor/treasure-disks"]
+	path = vendor/treasure-disks
+	url = https://github.com/cc-tweaked/treasure-disks.git
