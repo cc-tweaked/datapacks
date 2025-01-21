@@ -3,7 +3,6 @@ import { Base64String, assertNever, prettyJson } from "../utils";
 
 export enum Version {
   MC_1_20_1,
-  MC_1_20_6,
   MC_1_21,
 }
 
@@ -17,7 +16,6 @@ type VersionInfo = Readonly<{
 export const versions: VersionInfo[] = [
   // See https://minecraft.wiki/w/Pack_format for versions.
   { version: Version.MC_1_20_1, label: "1.20.1", resourceVersion: 15, dataVersion: 15 },
-  { version: Version.MC_1_20_6, label: "1.20.6", resourceVersion: 32, dataVersion: 41 },
   { version: Version.MC_1_21, label: "1.21", resourceVersion: 34, dataVersion: 48 },
 ]
 
@@ -82,12 +80,35 @@ modId="${id}"
 version="1.0.0"
 displayName=${prettyJson(name)}`;
 
+class TagOutput {
+  readonly #contents = new Map<string, Set<string>>();
+
+  hasTags(): boolean { return this.#contents.size > 0; }
+
+  add(tag: string, entries: string[]): void {
+    if (entries.length == 0) throw new Error("Must add at least one tag");
+
+    let contents = this.#contents.get(tag);
+    if (contents === undefined) this.#contents.set(tag, contents = new Set());
+    for (const entry of entries) contents.add(entry);
+  }
+
+  write(zip: JSZip, prefix: string) {
+    for (const [tag, values] of this.#contents.entries()) {
+      const [namespace, path] = tag.split(":", 2);
+      zip.file(`data/${namespace}/tags/${prefix}/${path}.json`, prettyJson({ values: [...values] }))
+    }
+  }
+}
+
 /** A builder for data and resource packs. */
 export class PackOutput {
   readonly #data = new Map<string, FileContents>();
   readonly #assets = new Map<string, FileContents>();
   readonly #translations = new Set<string>();
   readonly #extraModels = new Set<string>();
+
+  readonly blockTags = new TagOutput();
 
   readonly version: Version;
   readonly id: string;
@@ -130,13 +151,15 @@ export class PackOutput {
   }
 
   /** Determine if the datapack has any files. */
-  hasData(): boolean { return this.#data.size > 0; }
+  hasData(): boolean { return this.#data.size > 0 || this.blockTags.hasTags(); }
 
   /** Determine if the resource pack has any files. */
   hasResources(): boolean { return this.#assets.size > 0 || this.#translations.size > 0 || this.#extraModels.size > 0; }
 
   private fillDataPack(zip: JSZip) {
     for (const [path, contents] of this.#data.entries()) addFile(zip, path, contents);
+
+    this.blockTags.write(zip, this.version >= Version.MC_1_21 ? "block" : "blocks");
   }
 
   private fillResourcePack(zip: JSZip) {
@@ -166,7 +189,7 @@ export class PackOutput {
     this.fillResourcePack(zip);
 
     zip.file("fabric.mod.json", makeFabricModJson(this.id, this.name));
-    zip.file(this.version < Version.MC_1_20_6 ? "META-INF/mods.toml" : "META-INF/neoforge.mods.toml", makeModsToml(this.id, this.name));
+    zip.file(this.version >= Version.MC_1_21 ? "META-INF/neoforge.mods.toml" : "META-INF/mods.toml", makeModsToml(this.id, this.name));
     return zip;
   }
 }

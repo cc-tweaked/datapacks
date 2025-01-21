@@ -9,6 +9,7 @@ import { PackOutput, Version, makeModId, versions, type PackItem } from './datap
 import turtleFlags from './datapack/overlay';
 import treasure from "./datapack/treasure";
 import tools from './datapack/tools';
+import turtleUse from "./datapack/turtleUse";
 
 
 const Section: Component<{ title: string, children?: JSX.Element }> = props => <div class={styles.section}>
@@ -41,11 +42,10 @@ const App: Component = () => {
   const [mcVersion, setMcVersion] = createSignal(Version.MC_1_20_1);
 
   const enabledTools = createPackItems(tools, mcVersion);
-  const enabledTweaks = createPackItems([turtleFlags, treasure], mcVersion);
+  const enabledTweaks = createPackItems([turtleFlags, treasure, ...turtleUse], mcVersion);
   const allFeatures = () => [...enabledTools(), ...enabledTweaks()];
 
   const [createPack] = createResource(async () => {
-    console.log("id")
     const id = packId();
     const pack = new PackOutput(mcVersion(), packName(), id === "" ? undefined : id);
     const futures: (void | Promise<void>)[] = [];

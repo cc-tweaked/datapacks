@@ -34,7 +34,7 @@ const treasure: PackItem = {
         type: "minecraft:item",
         name: "computercraft:treasure_disk",
         functions: [
-          output.version >= Version.MC_1_20_6 ? {
+          output.version >= Version.MC_1_21 ? {
             function: "minecraft:set_components",
             components: {
               "computercraft:treasure_disk": { name: title, path },
