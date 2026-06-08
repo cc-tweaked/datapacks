@@ -87,10 +87,10 @@ const App: Component = () => {
     <Section title="Download">
       <Suspense fallback={<p>Loading...</p>}>
         <Switch>
-          <Match when={createPack.error}>
+          <Match when={createPack.state == "errored"}>
               <p>An error occurred (<code>{createPack.error}</code>)</p>
           </Match>
-          <Match when={createPack()}>
+          <Match when={createPack() !== undefined}>
             <Download pack={createPack()!!} />
           </Match>
         </Switch>
