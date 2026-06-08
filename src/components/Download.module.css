@@ -10,6 +10,9 @@
   --border-colour: #444;
 }
 
+/* Set min-width: 0 to prevent expanding beyond bounds of the grid. */
+.downloadSplit > * { min-width: 0; }
+
 .downloadSeparator {
   grid-area: separator;
 
